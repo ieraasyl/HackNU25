@@ -1,5 +1,19 @@
+# Core Web Framework
 fastapi[all]
 uvicorn
+
+# AI and PDF Processing
+openai
+pypdf
+python-multipart
+aiofiles
+
+# Data and Configuration
+pydantic
+python-dotenv
+httpx
+
+# Database and Background Jobs (Optional - keep if needed for main app)
 sqlmodel
 asyncpg
 aiosqlite
