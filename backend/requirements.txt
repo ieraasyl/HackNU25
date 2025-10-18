@@ -13,18 +13,19 @@ pydantic
 python-dotenv
 httpx
 
-# Database and Background Jobs (Optional - keep if needed for main app)
+# Database
 sqlmodel
 asyncpg
 aiosqlite
+
+# Background Jobs
 redis
 taskiq
 taskiq-redis
-python-dotenv
-openai
-langchain
-httpx
+
+# Authentication
 PyJWT
+
+# AI Models
 google-genai
-aiofiles
-python-multipart
+langchain

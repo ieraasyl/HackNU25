@@ -2,7 +2,7 @@
 PDF parsing service for text extraction and metadata
 """
 
-from pdf_utils import extract_text_from_pdf
+from app.pdf_utils import extract_text_from_pdf
 
 
 class PDFParserService:
