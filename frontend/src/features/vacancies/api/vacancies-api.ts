@@ -25,3 +25,19 @@ export const getVacancies = async (): Promise<Job[]> => {
     throw error;
   }
 };
+
+export const getVacancyById = async (id: string): Promise<Job | null> => {
+  try {
+    const response = await axiosClient.get(`/vacancies/${id}`);
+
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.error(
+        "Axios error fetching vacancy:",
+        error.response?.data || error.message
+      );
+    } else console.error("Error fetching vacancy:", error);
+    throw error;
+  }
+};

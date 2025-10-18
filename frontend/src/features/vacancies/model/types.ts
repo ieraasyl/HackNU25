@@ -7,7 +7,7 @@ export interface Job {
   salary_min: string;
   salary_max: string;
   employment_type: string;
-  requirements: Record<string, any>;
+  requirements: string;
   created_at: string;
   updated_at: string;
 }

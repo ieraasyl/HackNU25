@@ -83,7 +83,7 @@ export default function VacanciesPage() {
               </Stack>
             </div>
           )}
-          {jobsData.length > 0 && (
+          {jobsData.length > 0 ? (
             <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {jobsData.map((job: Job) => (
                 <JobCard
@@ -99,6 +99,15 @@ export default function VacanciesPage() {
                 />
               ))}
             </div>
+          ) : (
+            !isLoading && (
+              <Text
+                style={{ display: "flex", justifyContent: "center" }}
+                c="dimmed"
+              >
+                No job postings available
+              </Text>
+            )
           )}
         </main>
       </div>

@@ -6,6 +6,7 @@ import {
   Container,
   Divider,
   Group,
+  Loader,
   Stack,
   Text,
 } from "@mantine/core";
@@ -15,31 +16,34 @@ import { useNavigate, useParams } from "react-router";
 import { FormModal } from "../../features/resume-sender/form-modal";
 import { useWidget } from "../../features/widget/api/use-widget";
 import { Widget } from "../../features/widget/ui/widget";
+import { useVacancy } from "../../features/vacancies/api/use-vacancy";
 
 export function VacancyInfoPage() {
   const { id } = useParams<{ id: string }>();
-  console.log(id);
   const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
   const { widgetOpen, setWidgetOpen } = useWidget();
-  const job = {
-    id: "1",
-    title: "Front End Developer",
-    company: "Mycar.kz",
-    location: "Dhaka, Bangladesh",
-    type: "Part-time",
-    salary: "$500 - $700",
-    postedDate: "2 days ago",
-    experience: "2+ years",
-    description:
-      "We are looking for a skilled Front End Developer to join our dynamic team. You will be responsible for implementing visual elements that users see and interact with in a web application. The ideal candidate should have a strong understanding of web development technologies and a keen eye for design.",
-  };
+
+  const { data: job, isLoading, error } = useVacancy(id!);
 
   const handleBack = () => {
     navigate("/");
   };
 
-  if (!job) {
+  if (isLoading) {
+    return (
+      <Container style={{ minHeight: "100vh" }}>
+        <Stack align="center" justify="center" style={{ minHeight: "50vh" }}>
+          <Loader size="lg" />
+          <Text size="lg" c="dimmed">
+            Loading job details...
+          </Text>
+        </Stack>
+      </Container>
+    );
+  }
+
+  if (error || !job) {
     return (
       <Container style={{ minHeight: "100vh" }}>
         <Stack align="center" justify="center" style={{ minHeight: "50vh" }}>
@@ -120,20 +124,20 @@ export function VacancyInfoPage() {
                     },
                   }}
                 >
-                  {job.type}
+                  {job.employment_type}
                 </Badge>
 
                 <Group gap="xs">
                   <DollarSign size={16} color="#767f8c" />
                   <Text size="sm" fw={500}>
-                    {job.salary}
+                    {job.salary_min} - {job.salary_max} USD/year
                   </Text>
                 </Group>
 
                 <Group gap="xs">
                   <Clock size={16} color="#767f8c" />
                   <Text size="sm" c="#767f8c">
-                    Posted {job.postedDate}
+                    Posted {job.created_at}
                   </Text>
                 </Group>
               </Group>
@@ -148,7 +152,7 @@ export function VacancyInfoPage() {
                   Apply Now
                 </Button>
                 <Text size="sm" c="#767f8c">
-                  {job.experience} experience required
+                  {job.requirements} experience required
                 </Text>
               </Group>
             </Stack>
@@ -194,22 +198,7 @@ export function VacancyInfoPage() {
                       gap: "0.5rem",
                     }}
                   >
-                    {/* {job.requirements.map((requirement, index) => (
-                      <Group key={index} gap="xs" align="flex-start">
-                        <Box
-                          style={{
-                            width: 6,
-                            height: 6,
-                            backgroundColor: "#0ba02c",
-                            borderRadius: "50%",
-                            marginTop: 8,
-                          }}
-                        />
-                        <Text size="sm" c="#4f4f4f" style={{ lineHeight: 1.6 }}>
-                          {requirement}
-                        </Text>
-                      </Group>
-                    ))} */}
+                    {job.requirements}
                   </div>
                 </Stack>
               </Card>
@@ -253,16 +242,16 @@ export function VacancyInfoPage() {
                         Job Type
                       </Text>
                       <Text size="sm" c="#767f8c">
-                        {job.type}
+                        {job.employment_type}
                       </Text>
                     </div>
 
                     <div style={{ display: "grid", gap: "0.25rem" }}>
                       <Text size="sm" fw={500} c="#18191c">
-                        Experience
+                        Requirements
                       </Text>
                       <Text size="sm" c="#767f8c">
-                        {job.experience}
+                        {job.requirements}
                       </Text>
                     </div>
 
@@ -271,7 +260,7 @@ export function VacancyInfoPage() {
                         Salary
                       </Text>
                       <Text size="sm" c="#767f8c">
-                        {job.salary}
+                        {job.salary_min} - {job.salary_max} USD/year
                       </Text>
                     </div>
 
