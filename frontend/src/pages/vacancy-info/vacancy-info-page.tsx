@@ -1,7 +1,6 @@
 import {
   ActionIcon,
   Badge,
-  Box,
   Button,
   Card,
   Container,
@@ -12,18 +11,29 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ArrowLeft, Building2, Clock, DollarSign, MapPin } from "lucide-react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { FormModal } from "../../features/resume-sender/form-modal";
-import { mockJobs } from "../../features/vacancies/lib/mock-data";
+import { useWidget } from "../../features/widget/api/use-widget";
+import { Widget } from "../../features/widget/ui/widget";
 
-interface VacancyInfoPageProps {
-  jobId?: string;
-}
-
-export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
-  const job = mockJobs.find((job) => job.id === jobId) || mockJobs[0];
+export function VacancyInfoPage() {
+  const { id } = useParams<{ id: string }>();
+  console.log(id);
   const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
+  const { widgetOpen, setWidgetOpen } = useWidget();
+  const job = {
+    id: "1",
+    title: "Front End Developer",
+    company: "Mycar.kz",
+    location: "Dhaka, Bangladesh",
+    type: "Part-time",
+    salary: "$500 - $700",
+    postedDate: "2 days ago",
+    experience: "2+ years",
+    description:
+      "We are looking for a skilled Front End Developer to join our dynamic team. You will be responsible for implementing visual elements that users see and interact with in a web application. The ideal candidate should have a strong understanding of web development technologies and a keen eye for design.",
+  };
 
   const handleBack = () => {
     navigate("/");
@@ -49,7 +59,9 @@ export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
         onClose={close}
         jobTitle={job.title}
         companyName={job.company}
+        onSubmit={() => setWidgetOpen(true)}
       />
+      {widgetOpen && <Widget />}
       <Container
         size="lg"
         style={{
@@ -182,7 +194,7 @@ export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
                       gap: "0.5rem",
                     }}
                   >
-                    {job.requirements.map((requirement, index) => (
+                    {/* {job.requirements.map((requirement, index) => (
                       <Group key={index} gap="xs" align="flex-start">
                         <Box
                           style={{
@@ -197,7 +209,7 @@ export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
                           {requirement}
                         </Text>
                       </Group>
-                    ))}
+                    ))} */}
                   </div>
                 </Stack>
               </Card>

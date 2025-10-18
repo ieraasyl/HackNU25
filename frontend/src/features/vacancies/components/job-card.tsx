@@ -16,7 +16,8 @@ interface JobCardProps {
   company?: string;
   location?: string;
   employmentType?: string;
-  salary?: string;
+  salaryLow?: string;
+  salaryHigh?: string;
   companyLogo?: string;
   onBookmark?: () => void;
   onClick?: () => void;
@@ -27,7 +28,8 @@ export function JobCard({
   company = "Mycar.kz",
   location = "Dhaka, Bangladesh",
   employmentType = "Part-time",
-  salary = "$20,000 - $25,000",
+  salaryLow,
+  salaryHigh,
   companyLogo = "./mycar-logo.svg",
   onBookmark,
   onClick,
@@ -66,7 +68,7 @@ export function JobCard({
               {employmentType}
             </Badge>
             <Text size="sm" c="#767f8c">
-              Salary: {salary}
+              Salary: {salaryLow} - {salaryHigh}
             </Text>
           </Group>
         </Stack>
