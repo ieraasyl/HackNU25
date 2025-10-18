@@ -5,7 +5,7 @@ from app.tasks.jobs import broker
 from taskiq import TaskiqScheduler
 import asyncio
 
-app = FastAPI(title="SmartBot API")
+app = FastAPI(title="HackNU API")
 
 origins = ["*"]  # later restrict to widget/dashboard domains
 app.add_middleware(
