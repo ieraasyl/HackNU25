@@ -9,7 +9,7 @@ import {
   Text,
 } from "@mantine/core";
 import "@mantine/core/styles.css";
-import { Bookmark, PinIcon } from "lucide-react";
+import { MoveDiagonal, PinIcon } from "lucide-react";
 
 interface JobCardProps {
   title?: string;
@@ -38,7 +38,7 @@ export function JobCard({
       padding="xl"
       radius="md"
       withBorder
-      style={{ height: "100%" }}
+      style={{ height: "100%", cursor: "pointer" }}
       onClick={onClick}
     >
       <Stack gap="lg">
@@ -104,7 +104,7 @@ export function JobCard({
             size="lg"
             onClick={onBookmark}
           >
-            <Bookmark size={24} color="#c8ccd1" />
+            <MoveDiagonal size={24} color="#c8ccd1" />
           </ActionIcon>
         </Group>
       </Stack>
