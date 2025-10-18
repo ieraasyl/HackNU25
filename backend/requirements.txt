@@ -1,0 +1,11 @@
+fastapi[all]
+uvicorn
+sqlmodel
+asyncpg
+redis
+taskiq
+taskiq-redis
+python-dotenv
+openai
+langchain
+httpx
