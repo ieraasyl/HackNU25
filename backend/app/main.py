@@ -1,60 +1,115 @@
-#!/usr/bin/env python3
-"""
-HackNU25 Main Application Entry Point
-Runs the PDF analysis server from the app folder
-"""
-
-import sys
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from contextlib import asynccontextmanager
+from app.routers import chat
+from app.routers import vacancies, applications
+from app.tasks.jobs import broker
+from app.db.session import init_db, engine
+from taskiq import TaskiqScheduler
+from sqlmodel import SQLModel
+import asyncio
 import os
-import uvicorn
-import logging
 
-# Add the backend directory to the Python path so we can import from parent directory
-backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, backend_dir)
+from app.config.settings import settings
+from app.backend_models.response import PDFAnalysisResponse
+from app.services_pdf.pdf_request import PDFRequestService
 
-# Import the server from the parent directory
-from server import app
-from config.settings import settings
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: Initialize database
+    await init_db()
+    yield
+    # Shutdown: cleanup if needed
 
-logger = logging.getLogger(__name__)
+app = FastAPI(title="HackNU API", lifespan=lifespan)
 
+origins = ["*"]  # later restrict to widget/dashboard domains
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-def main():
-    """Main entry point for the HackNU25 application"""
-    logger.info("🚀 Starting HackNU25 Application from app/main.py")
-    logger.info("📄 PDF Analysis Server with FastAPI")
-    
-    print("🚀 Starting HackNU25 Application from app/main.py")
-    print("📄 PDF Analysis Server with FastAPI")
-    print("")
-    
-    if settings.openai_api_key and settings.openai_client:
-        logger.info("✅ OpenAI API key configured")
-        print("✅ OpenAI API key configured")
+# Register routers
+app.include_router(chat.router)
+app.include_router(vacancies.router)
+app.include_router(applications.router)
+
+# Initialize PDF request service
+pdf_request_service = PDFRequestService()
+
+@app.get("/")
+async def root():
+    """Root endpoint"""
+    return {
+        "message": "HackNU API", 
+        "endpoints": {
+            "health": "/health",
+            "analyze_pdf": "/api/v1/analyze-pdf (PDF → AI analysis)",
+            "parse_pdf": "/api/v1/parse-pdf (PDF → text extraction only)",
+            "docs": "/docs",
+        }
+    }
+
+@app.get("/health")
+async def health():
+    """Health check endpoint"""
+    openai_status = "connected" if settings.openai_api_key and settings.openai_client else "no_api_key"
+    return {
+        "status": "ok",
+        "openai_status": openai_status,
+        "model": getattr(settings, 'openai_model', 'N/A')
+    }
+
+@app.post("/api/v1/analyze-pdf", response_model=PDFAnalysisResponse)
+async def analyze_pdf(
+    file: UploadFile = File(...),
+    include_raw_text: bool = Form(False, description="Include extracted text in response")
+):
+    """Analyze PDF resume with comprehensive AI analysis using OpenAI GPT"""
+    return await pdf_request_service.process_analyze_request(file, include_raw_text)
+
+@app.post("/api/v1/parse-pdf", response_model=PDFAnalysisResponse)
+async def parse_pdf(
+    file: UploadFile = File(...),
+    include_raw_text: bool = Form(True, description="Include extracted text in response")
+):
+    """Extract text from PDF using PyPDF only (no AI analysis)"""
+    return await pdf_request_service.process_parse_request(file, include_raw_text)
+
+@app.get("/test")
+async def serve_test_interface():
+    """Serve the HTML test interface"""
+    html_file_path = os.path.join(os.path.dirname(__file__), "..", "pdf_test_interface.html")
+    if os.path.exists(html_file_path):
+        return FileResponse(html_file_path)
     else:
-        logger.warning("⚠️ No OpenAI API key - AI analysis will not work")
-        print("⚠️  No OpenAI API key - AI analysis will not work")
-        print("   Set OPENAI_API_KEY environment variable for AI analysis")
-    
-    print("")
-    print(f"🌐 API Documentation: http://{settings.host}:{settings.port}/docs")
-    print("🤖 AI Analysis: POST /api/v1/analyze-pdf")
-    print("📄 Text Extraction: POST /api/v1/parse-pdf")
-    print(f"🧪 Test interface: http://{settings.host}:{settings.port}/test")
-    print("🏥 Health check: GET /health")
-    print("📝 Logs: hacknu25_server.log")
-    
-    logger.info(f"🌐 Server starting on http://{settings.host}:{settings.port}")
-    
-    uvicorn.run(
-        app, 
-        host=settings.host, 
-        port=settings.port,
-        reload=settings.reload,
-        log_level="info"
-    )
+        raise HTTPException(status_code=404, detail="Test interface not found")
 
-
-if __name__ == "__main__":
-    main()
+@app.post("/debug/reset-db")
+async def reset_database():
+    """
+    Debug endpoint to reset the database by dropping and recreating all tables.
+    WARNING: This will delete all data!
+    """
+    try:
+        # Drop all tables
+        async with engine.begin() as conn:
+            await conn.run_sync(SQLModel.metadata.drop_all)
+        
+        # Recreate all tables
+        async with engine.begin() as conn:
+            await conn.run_sync(SQLModel.metadata.create_all)
+        
+        return {
+            "status": "success",
+            "message": "Database has been reset successfully. All tables dropped and recreated."
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": f"Failed to reset database: {str(e)}"
+        }
