@@ -2,6 +2,7 @@ fastapi[all]
 uvicorn
 sqlmodel
 asyncpg
+aiosqlite
 redis
 taskiq
 taskiq-redis
@@ -9,3 +10,7 @@ python-dotenv
 openai
 langchain
 httpx
+PyJWT
+google-genai
+aiofiles
+python-multipart

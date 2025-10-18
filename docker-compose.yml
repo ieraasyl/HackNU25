@@ -3,7 +3,7 @@ version: "3.9"
 services:
   backend:
     build: ./backend
-    container_name: smartbot-backend
+    container_name: hacknu25
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
     ports:
       - "8000:8000"
@@ -18,9 +18,9 @@ services:
   postgres:
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: smartbot
-      POSTGRES_PASSWORD: smartbot
-      POSTGRES_DB: smartbot
+      POSTGRES_USER: hacknu25
+      POSTGRES_PASSWORD: hacknu25
+      POSTGRES_DB: hacknu25
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
@@ -30,20 +30,6 @@ services:
     image: redis:7-alpine
     ports:
       - "6379:6379"
-
-  frontend-dashboard:
-    build: ./frontend/dashboard
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
-
-  frontend-widget:
-    build: ./frontend/widget
-    ports:
-      - "3001:80"
-    depends_on:
-      - backend
 
 volumes:
   pgdata:
