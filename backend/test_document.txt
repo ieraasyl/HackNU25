@@ -1,0 +1,75 @@
+Test Document for PDF Processing
+
+Company: TechCorp Inc.
+Date: October 18, 2025
+Report Type: Quarterly Business Analysis
+
+EXECUTIVE SUMMARY
+================
+
+This document contains the quarterly business analysis for TechCorp Inc. 
+The analysis covers financial performance, market trends, and strategic recommendations.
+
+KEY FINANCIAL METRICS
+=====================
+
+Revenue Performance:
+- Q3 2025: $2,500,000
+- Q2 2025: $2,000,000
+- Growth: 25% quarter-over-quarter
+
+Profit Analysis:
+- Gross Profit: $1,500,000
+- Net Profit: $750,000
+- Profit Margin: 30%
+
+MARKET ANALYSIS
+===============
+
+Market Share:
+- Current market share: 15%
+- Target market share: 20%
+- Main competitors: CompanyA, CompanyB
+
+Customer Metrics:
+- Total customers: 5,000
+- New customers this quarter: 1,250
+- Customer retention rate: 85%
+
+STRATEGIC RECOMMENDATIONS
+========================
+
+1. Investment in R&D
+   - Allocate 15% of revenue to research and development
+   - Focus on AI and machine learning technologies
+
+2. Market Expansion
+   - Enter European market in Q1 2026
+   - Target small to medium businesses
+
+3. Product Development
+   - Launch new product line in Q4 2025
+   - Integrate customer feedback from surveys
+
+RISK ASSESSMENT
+===============
+
+Identified Risks:
+- Economic downturn affecting customer spending
+- Increased competition in core markets  
+- Supply chain disruptions
+
+Mitigation Strategies:
+- Diversify customer base across industries
+- Build strategic partnerships
+- Establish alternative suppliers
+
+CONCLUSION
+==========
+
+TechCorp Inc. shows strong growth trajectory with 25% revenue increase.
+The company is well-positioned for continued expansion with proper execution
+of the recommended strategies.
+
+Contact: analysis@techcorp.com
+Phone: +1-555-0199

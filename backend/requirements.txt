@@ -10,3 +10,7 @@ openai
 langchain
 httpx
 PyJWT
+pydantic
+pypdf
+python-multipart
+aiofiles
