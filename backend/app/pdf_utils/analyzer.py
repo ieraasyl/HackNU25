@@ -5,8 +5,8 @@ PDF Analyzer - Clean analysis logic moved from services
 import time
 import json
 import logging
-from config.settings import settings
-from models.response import StructuredAnalysis
+from app.config.settings import settings
+from app.backend_models.response import StructuredAnalysis
 
 logger = logging.getLogger(__name__)
 

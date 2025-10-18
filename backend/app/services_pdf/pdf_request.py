@@ -6,9 +6,9 @@ Handles the complete workflow from file validation to response generation
 import time
 import logging
 from fastapi import HTTPException
-from models.response import PDFAnalysisResponse
-from services.pdf_parser import PDFParserService
-from services.pdf_analyzer import PDFAnalyzerService
+from app.backend_models.response import PDFAnalysisResponse
+from app.services_pdf.pdf_parser import PDFParserService
+from app.services_pdf.pdf_analyzer import PDFAnalyzerService
 
 logger = logging.getLogger(__name__)
 

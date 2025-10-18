@@ -10,14 +10,10 @@ from taskiq import TaskiqScheduler
 from sqlmodel import SQLModel
 import asyncio
 import os
-import sys
 
-# Add parent directory to path to import from server.py modules
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
-from config.settings import settings
-from models.response import PDFAnalysisResponse
-from services.pdf_request import PDFRequestService
+from app.config.settings import settings
+from app.backend_models.response import PDFAnalysisResponse
+from app.services_pdf.pdf_request import PDFRequestService
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

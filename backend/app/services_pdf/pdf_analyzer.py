@@ -2,8 +2,8 @@
 PDF analysis service using OpenAI GPT for resume analysis
 """
 
-from pdf_utils import analyze_with_openai
-from models.response import StructuredAnalysis
+from app.pdf_utils import analyze_with_openai
+from app.backend_models.response import StructuredAnalysis
 
 
 class PDFAnalyzerService:
