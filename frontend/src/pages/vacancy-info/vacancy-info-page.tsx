@@ -17,6 +17,7 @@ import { FormModal } from "../../features/resume-sender/form-modal";
 import { useWidget } from "../../features/widget/api/use-widget";
 import { Widget } from "../../features/widget/ui/widget";
 import { useVacancy } from "../../features/vacancies/api/use-vacancy";
+import { formatPostedDate } from "../../utils/date-formatter";
 
 export function VacancyInfoPage() {
   const { id } = useParams<{ id: string }>();
@@ -75,7 +76,6 @@ export function VacancyInfoPage() {
         }}
       >
         <Stack gap="xl">
-          {/* Header with back button */}
           <Group>
             <ActionIcon variant="subtle" size="lg" onClick={handleBack}>
               <ArrowLeft size={20} />
@@ -85,7 +85,6 @@ export function VacancyInfoPage() {
             </Text>
           </Group>
 
-          {/* Job Header Card */}
           <Card shadow="sm" padding="xl" radius="md" withBorder>
             <Stack gap="md">
               <Group justify="space-between" align="flex-start">
@@ -137,7 +136,7 @@ export function VacancyInfoPage() {
                 <Group gap="xs">
                   <Clock size={16} color="#767f8c" />
                   <Text size="sm" c="#767f8c">
-                    Posted {job.created_at}
+                    Posted {formatPostedDate(job.created_at)}
                   </Text>
                 </Group>
               </Group>
@@ -158,7 +157,6 @@ export function VacancyInfoPage() {
             </Stack>
           </Card>
 
-          {/* Main Content Grid */}
           <div
             style={{
               display: "grid",
@@ -167,14 +165,12 @@ export function VacancyInfoPage() {
               alignItems: "start",
             }}
           >
-            {/* Left Column - Main Content */}
             <div
               style={{
                 display: "grid",
                 gap: "1.5rem",
               }}
             >
-              {/* Job Description Card */}
               <Card shadow="sm" padding="xl" radius="md" withBorder>
                 <Stack gap="md">
                   <Text size="lg" fw={600} c="#18191c">
@@ -204,7 +200,6 @@ export function VacancyInfoPage() {
               </Card>
             </div>
 
-            {/* Right Column - Sidebar */}
             <div
               style={{
                 display: "grid",
@@ -214,7 +209,6 @@ export function VacancyInfoPage() {
                 top: "2rem",
               }}
             >
-              {/* Quick Apply Card */}
               <Card shadow="sm" padding="lg" radius="md" withBorder>
                 <div
                   style={{
@@ -230,7 +224,6 @@ export function VacancyInfoPage() {
                   </Button>
                   <Divider />
 
-                  {/* Job Details Grid */}
                   <div
                     style={{
                       display: "grid",
