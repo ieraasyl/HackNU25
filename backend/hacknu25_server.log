@@ -21,3 +21,62 @@
 2025-10-18 20:48:06,749 - pdf_utils.analyzer - INFO - 📊 Response length: 3194 chars
 2025-10-18 20:48:06,749 - pdf_utils.analyzer - INFO - 🏁 Total OpenAI analysis time: 7.05s
 2025-10-18 20:48:06,749 - services.pdf_request - INFO - 🏁 analyze-pdf request completed in 7.07s total
+2025-10-18 20:56:56,937 - config.settings - INFO - 🔧 Environment variables loaded
+2025-10-18 20:56:56,937 - config.settings - INFO - 🔑 OpenAI API key configured
+2025-10-18 20:56:56,960 - config.settings - INFO - 🤖 OpenAI client initialized
+2025-10-18 20:56:56,986 - __main__ - INFO - 🚀 Starting HackNU25 Application from app/main.py
+2025-10-18 20:56:56,986 - __main__ - INFO - 📄 PDF Analysis Server with FastAPI
+2025-10-18 20:56:56,986 - __main__ - INFO - ✅ OpenAI API key configured
+2025-10-18 20:56:56,986 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
+2025-10-18 20:57:13,896 - services.pdf_request - INFO - 🚀 Starting analyze-pdf request - File: Jordan_Chen_Resume.pdf
+2025-10-18 20:57:13,896 - services.pdf_request - INFO - ✅ File validation completed in 0.00s
+2025-10-18 20:57:13,896 - services.pdf_request - INFO - 📖 File read completed in 0.00s - Size: 3634 bytes
+2025-10-18 20:57:13,896 - pdf_utils.parser - INFO - 📄 Starting PDF text extraction - Size: 3634 bytes
+2025-10-18 20:57:13,897 - pdf_utils.parser - INFO - 📖 PDF parsed in 0.00s - Pages: 1
+2025-10-18 20:57:13,909 - pdf_utils.parser - INFO - 📝 Text extraction completed in 0.01s - 2099 chars total
+2025-10-18 20:57:13,909 - pdf_utils.parser - INFO - 📊 Metadata extracted in 0.00s
+2025-10-18 20:57:13,909 - pdf_utils.parser - INFO - ✅ PDF processing completed in 0.01s total
+2025-10-18 20:57:13,909 - pdf_utils.analyzer - INFO - 🤖 Starting OpenAI analysis - Text length: 2096 chars
+2025-10-18 20:57:13,909 - pdf_utils.analyzer - INFO - 📝 Prompt prepared in 0.00s - Length: 4303 chars
+2025-10-18 20:57:13,909 - pdf_utils.analyzer - INFO - 🌐 Making OpenAI API call...
+2025-10-18 20:57:20,216 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-18 20:57:20,220 - pdf_utils.analyzer - INFO - ✅ OpenAI API call completed in 6.31s
+2025-10-18 20:57:20,220 - pdf_utils.analyzer - INFO - 📊 Response length: 3100 chars
+2025-10-18 20:57:20,220 - pdf_utils.analyzer - INFO - 🏁 Total OpenAI analysis time: 6.31s
+2025-10-18 20:57:20,220 - pdf_utils.analyzer - INFO - ✅ Successfully parsed JSON response
+2025-10-18 20:57:20,220 - services.pdf_request - INFO - 🏁 analyze-pdf request completed in 6.32s total
+2025-10-18 20:57:20,220 - services.pdf_request - ERROR - ❌ analyze-pdf failed after 6.32s: 1 validation error for PDFAnalysisResponse
+analysis
+  Input should be a valid string [type=string_type, input_value={'personal_information': ... [], 'conferences': []}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+2025-10-18 20:58:54,362 - config.settings - INFO - 🔧 Environment variables loaded
+2025-10-18 20:58:54,362 - config.settings - INFO - 🔑 OpenAI API key configured
+2025-10-18 20:58:54,384 - config.settings - INFO - 🤖 OpenAI client initialized
+2025-10-18 20:58:54,412 - __main__ - INFO - 🚀 Starting HackNU25 Application from app/main.py
+2025-10-18 20:58:54,412 - __main__ - INFO - 📄 PDF Analysis Server with FastAPI
+2025-10-18 20:58:54,413 - __main__ - INFO - ✅ OpenAI API key configured
+2025-10-18 20:58:54,413 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
+2025-10-18 21:00:04,077 - config.settings - INFO - 🔧 Environment variables loaded
+2025-10-18 21:00:04,077 - config.settings - INFO - 🔑 OpenAI API key configured
+2025-10-18 21:00:04,091 - config.settings - INFO - 🤖 OpenAI client initialized
+2025-10-18 21:00:04,110 - __main__ - INFO - 🚀 Starting HackNU25 Application from app/main.py
+2025-10-18 21:00:04,110 - __main__ - INFO - 📄 PDF Analysis Server with FastAPI
+2025-10-18 21:00:04,110 - __main__ - INFO - ✅ OpenAI API key configured
+2025-10-18 21:00:04,110 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
+2025-10-18 21:00:20,151 - services.pdf_request - INFO - 🚀 Starting analyze-pdf request - File: Jordan_Chen_Resume.pdf
+2025-10-18 21:00:20,153 - services.pdf_request - INFO - ✅ File validation completed in 0.00s
+2025-10-18 21:00:20,153 - services.pdf_request - INFO - 📖 File read completed in 0.00s - Size: 3634 bytes
+2025-10-18 21:00:20,153 - pdf_utils.parser - INFO - 📄 Starting PDF text extraction - Size: 3634 bytes
+2025-10-18 21:00:20,154 - pdf_utils.parser - INFO - 📖 PDF parsed in 0.00s - Pages: 1
+2025-10-18 21:00:20,162 - pdf_utils.parser - INFO - 📝 Text extraction completed in 0.01s - 2099 chars total
+2025-10-18 21:00:20,162 - pdf_utils.parser - INFO - 📊 Metadata extracted in 0.00s
+2025-10-18 21:00:20,162 - pdf_utils.parser - INFO - ✅ PDF processing completed in 0.01s total
+2025-10-18 21:00:20,162 - pdf_utils.analyzer - INFO - 🤖 Starting OpenAI analysis - Text length: 2096 chars
+2025-10-18 21:00:20,162 - pdf_utils.analyzer - INFO - 📝 Prompt prepared in 0.00s - Length: 4303 chars
+2025-10-18 21:00:20,163 - pdf_utils.analyzer - INFO - 🌐 Making OpenAI API call...
+2025-10-18 21:00:27,400 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-18 21:00:27,411 - pdf_utils.analyzer - INFO - ✅ OpenAI API call completed in 7.25s
+2025-10-18 21:00:27,411 - pdf_utils.analyzer - INFO - 📊 Response length: 3127 chars
+2025-10-18 21:00:27,411 - pdf_utils.analyzer - INFO - 🏁 Total OpenAI analysis time: 7.25s
+2025-10-18 21:00:27,411 - pdf_utils.analyzer - INFO - ✅ Successfully parsed JSON response
+2025-10-18 21:00:27,412 - services.pdf_request - INFO - 🏁 analyze-pdf request completed in 7.26s total
