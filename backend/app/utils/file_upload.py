@@ -26,6 +26,13 @@ async def save_uploaded_file(file: UploadFile) -> str:
     Raises:
         HTTPException: If file validation fails
     """
+    # Validate filename exists
+    if not file.filename:
+        raise HTTPException(
+            status_code=400,
+            detail="File must have a filename"
+        )
+    
     # Validate file extension
     file_ext = Path(file.filename).suffix.lower()
     if file_ext not in ALLOWED_EXTENSIONS:

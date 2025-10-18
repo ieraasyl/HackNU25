@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends
-from sqlmodel import select
+from sqlmodel import select, col
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List, Optional
 from app.models.vacancy import Vacancy, VacancyCreate, VacancyRead
@@ -31,7 +31,7 @@ async def get_vacancies(
     query = select(Vacancy)
     
     if location:
-        query = query.where(Vacancy.location.ilike(f"%{location}%"))
+        query = query.where(col(Vacancy.location).ilike(f"%{location}%"))
     
     if employment_type:
         query = query.where(Vacancy.employment_type == employment_type)
@@ -105,8 +105,8 @@ async def update_vacancy(
     for key, value in vacancy_data.model_dump().items():
         setattr(vacancy, key, value)
     
-    from datetime import datetime
-    vacancy.updated_at = datetime.utcnow()
+    from datetime import datetime, timezone
+    vacancy.updated_at = datetime.now(timezone.utc)
     
     await session.commit()
     await session.refresh(vacancy)
