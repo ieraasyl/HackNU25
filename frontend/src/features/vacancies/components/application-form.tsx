@@ -1,37 +1,43 @@
-"use client"
+"use client";
 
-import type React from "react"
+import { File, X } from "lucide-react";
+import type React from "react";
 
-import { useState } from "react"
-import { Dropzone, MIME_TYPES } from "@mantine/dropzone"
-import { IconUpload, IconX, IconFile } from "@tabler/icons-react"
+import { useState } from "react";
 
 interface ApplicationFormProps {
-  jobTitle: string
+  jobTitle: string;
 }
 
 export function ApplicationForm({ jobTitle }: ApplicationFormProps) {
-  const [files, setFiles] = useState<File[]>([])
+  const [files, setFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     coverLetter: "",
-  })
+  });
+
+  console.log(jobTitle);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("[v0] Form submitted:", { formData, files })
-    alert("Application submitted successfully!")
-  }
+    e.preventDefault();
+    console.log("[v0] Form submitted:", { formData, files });
+    alert("Application submitted successfully!");
+  };
 
   return (
     <div className="rounded-lg border border-border bg-card p-8">
-      <h2 className="mb-6 text-3xl font-bold text-card-foreground">Apply for this Position</h2>
+      <h2 className="mb-6 text-3xl font-bold text-card-foreground">
+        Apply for this Position
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="name" className="mb-2 block text-sm font-medium text-card-foreground">
+          <label
+            htmlFor="name"
+            className="mb-2 block text-sm font-medium text-card-foreground"
+          >
             Full Name *
           </label>
           <input
@@ -46,7 +52,10 @@ export function ApplicationForm({ jobTitle }: ApplicationFormProps) {
         </div>
 
         <div>
-          <label htmlFor="email" className="mb-2 block text-sm font-medium text-card-foreground">
+          <label
+            htmlFor="email"
+            className="mb-2 block text-sm font-medium text-card-foreground"
+          >
             Email Address *
           </label>
           <input
@@ -54,43 +63,57 @@ export function ApplicationForm({ jobTitle }: ApplicationFormProps) {
             type="email"
             required
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
             className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-foreground placeholder:text-muted-foreground focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
             placeholder="john@example.com"
           />
         </div>
 
         <div>
-          <label htmlFor="phone" className="mb-2 block text-sm font-medium text-card-foreground">
+          <label
+            htmlFor="phone"
+            className="mb-2 block text-sm font-medium text-card-foreground"
+          >
             Phone Number
           </label>
           <input
             id="phone"
             type="tel"
             value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
             className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-foreground placeholder:text-muted-foreground focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
             placeholder="+1 (555) 000-0000"
           />
         </div>
 
         <div>
-          <label htmlFor="coverLetter" className="mb-2 block text-sm font-medium text-card-foreground">
+          <label
+            htmlFor="coverLetter"
+            className="mb-2 block text-sm font-medium text-card-foreground"
+          >
             Cover Letter
           </label>
           <textarea
             id="coverLetter"
             rows={6}
             value={formData.coverLetter}
-            onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, coverLetter: e.target.value })
+            }
             className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-foreground placeholder:text-muted-foreground focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
             placeholder="Tell us why you're a great fit for this role..."
           />
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium text-card-foreground">Resume / CV *</label>
-          <Dropzone
+          <label className="mb-2 block text-sm font-medium text-card-foreground">
+            Resume / CV *
+          </label>
+          {/* <Dropzone
             onDrop={setFiles}
             maxSize={5 * 1024 ** 2}
             accept={[MIME_TYPES.pdf, MIME_TYPES.doc, MIME_TYPES.docx]}
@@ -108,27 +131,40 @@ export function ApplicationForm({ jobTitle }: ApplicationFormProps) {
               </Dropzone.Idle>
 
               <div className="text-center">
-                <p className="text-lg font-medium text-card-foreground">Drop your resume here or click to browse</p>
-                <p className="mt-1 text-sm text-muted-foreground">PDF, DOC, or DOCX (max 5MB)</p>
+                <p className="text-lg font-medium text-card-foreground">
+                  Drop your resume here or click to browse
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  PDF, DOC, or DOCX (max 5MB)
+                </p>
               </div>
             </div>
-          </Dropzone>
+          </Dropzone> */}
 
           {files.length > 0 && (
             <div className="mt-4 space-y-2">
               {files.map((file, index) => (
-                <div key={index} className="flex items-center gap-3 rounded-lg border border-border bg-muted/50 p-3">
-                  <IconFile size={20} className="text-primary" />
+                <div
+                  key={index}
+                  className="flex items-center gap-3 rounded-lg border border-border bg-muted/50 p-3"
+                >
+                  <File size={20} className="text-primary" />
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-card-foreground">{file.name}</p>
-                    <p className="text-xs text-muted-foreground">{(file.size / 1024).toFixed(2)} KB</p>
+                    <p className="text-sm font-medium text-card-foreground">
+                      {file.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {(file.size / 1024).toFixed(2)} KB
+                    </p>
                   </div>
                   <button
                     type="button"
-                    onClick={() => setFiles(files.filter((_, i) => i !== index))}
+                    onClick={() =>
+                      setFiles(files.filter((_, i) => i !== index))
+                    }
                     className="text-muted-foreground hover:text-destructive transition-colors"
                   >
-                    <IconX size={20} />
+                    <X size={20} />
                   </button>
                 </div>
               ))}
@@ -145,5 +181,5 @@ export function ApplicationForm({ jobTitle }: ApplicationFormProps) {
         </button>
       </form>
     </div>
-  )
+  );
 }
