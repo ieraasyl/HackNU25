@@ -128,6 +128,14 @@ IMPORTANT: Return ONLY valid JSON. If any information is not found, use "Not spe
         total_time = time.time() - start_time
         
         response_text = response.choices[0].message.content
+        
+        # Handle None response
+        if not response_text:
+            logger.error("❌ OpenAI returned empty response")
+            return StructuredAnalysis(
+                error="OpenAI returned empty response"
+            )
+        
         logger.info(f"✅ OpenAI API call completed in {api_time:.2f}s")
         logger.info(f"📊 Response length: {len(response_text)} chars")
         logger.info(f"🏁 Total OpenAI analysis time: {total_time:.2f}s")
