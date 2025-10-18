@@ -1,56 +1,23 @@
-2025-10-18 20:01:27,373 - config.settings - INFO - 🔧 Environment variables loaded
-2025-10-18 20:01:27,373 - config.settings - INFO - 🔑 OpenAI API key configured
-2025-10-18 20:01:27,388 - config.settings - INFO - 🤖 OpenAI client initialized
-2025-10-18 20:01:27,408 - __main__ - INFO - 🚀 Starting HackNU25 Backend Server...
-2025-10-18 20:01:27,408 - __main__ - INFO - 📄 PDF processing with OpenAI GPT and text extraction
-2025-10-18 20:01:27,408 - __main__ - INFO - 🎯 Two specialized endpoints
-2025-10-18 20:01:27,408 - __main__ - INFO - ✅ OpenAI API key configured
-2025-10-18 20:01:27,408 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
-2025-10-18 20:03:18,650 - config.settings - INFO - 🔧 Environment variables loaded
-2025-10-18 20:03:18,650 - config.settings - INFO - 🔑 OpenAI API key configured
-2025-10-18 20:03:18,665 - config.settings - INFO - 🤖 OpenAI client initialized
-2025-10-18 20:03:18,680 - __main__ - INFO - 🚀 Starting HackNU25 Backend Server...
-2025-10-18 20:03:18,681 - __main__ - INFO - 📄 PDF processing with OpenAI GPT and text extraction
-2025-10-18 20:03:18,681 - __main__ - INFO - 🎯 Two specialized endpoints
-2025-10-18 20:03:18,681 - __main__ - INFO - ✅ OpenAI API key configured
-2025-10-18 20:03:18,681 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
-2025-10-18 20:07:06,457 - config.settings - INFO - 🔧 Environment variables loaded
-2025-10-18 20:07:06,457 - config.settings - INFO - 🔑 OpenAI API key configured
-2025-10-18 20:07:06,472 - config.settings - INFO - 🤖 OpenAI client initialized
-2025-10-18 20:07:06,489 - __main__ - INFO - 🚀 Starting HackNU25 Backend Server...
-2025-10-18 20:07:06,489 - __main__ - INFO - 📄 PDF processing with OpenAI GPT and text extraction
-2025-10-18 20:07:06,489 - __main__ - INFO - 🎯 Two specialized endpoints
-2025-10-18 20:07:06,489 - __main__ - INFO - ✅ OpenAI API key configured
-2025-10-18 20:07:06,489 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
-2025-10-18 20:07:38,890 - config.settings - INFO - 🔧 Environment variables loaded
-2025-10-18 20:07:38,890 - config.settings - INFO - 🔑 OpenAI API key configured
-2025-10-18 20:07:38,905 - config.settings - INFO - 🤖 OpenAI client initialized
-2025-10-18 20:07:38,920 - __main__ - INFO - 🚀 Starting HackNU25 Backend Server...
-2025-10-18 20:07:38,920 - __main__ - INFO - 📄 PDF processing with OpenAI GPT and text extraction
-2025-10-18 20:07:38,920 - __main__ - INFO - 🎯 Two specialized endpoints
-2025-10-18 20:07:38,920 - __main__ - INFO - ✅ OpenAI API key configured
-2025-10-18 20:07:38,920 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
-2025-10-18 20:25:06,512 - config.settings - INFO - 🔧 Environment variables loaded
-2025-10-18 20:25:06,512 - config.settings - INFO - 🔑 OpenAI API key configured
-2025-10-18 20:25:06,528 - config.settings - INFO - 🤖 OpenAI client initialized
-2025-10-18 20:25:06,549 - __main__ - INFO - 🚀 Starting HackNU25 Backend Server...
-2025-10-18 20:25:06,549 - __main__ - INFO - 📄 PDF processing with OpenAI GPT and text extraction
-2025-10-18 20:25:06,549 - __main__ - INFO - 🎯 Two specialized endpoints
-2025-10-18 20:25:06,549 - __main__ - INFO - ✅ OpenAI API key configured
-2025-10-18 20:25:06,549 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
-2025-10-18 20:25:32,890 - services.pdf_request - INFO - 🚀 Starting analyze-pdf request - File: Jordan_Chen_Resume.pdf
-2025-10-18 20:25:32,890 - services.pdf_request - INFO - ✅ File validation completed in 0.00s
-2025-10-18 20:25:32,890 - services.pdf_request - INFO - 📖 File read completed in 0.00s - Size: 3634 bytes
-2025-10-18 20:25:32,890 - pdf_utils.parser - INFO - 📄 Starting PDF text extraction - Size: 3634 bytes
-2025-10-18 20:25:32,891 - pdf_utils.parser - INFO - 📖 PDF parsed in 0.00s - Pages: 1
-2025-10-18 20:25:32,899 - pdf_utils.parser - INFO - 📝 Text extraction completed in 0.01s - 2099 chars total
-2025-10-18 20:25:32,899 - pdf_utils.parser - INFO - 📊 Metadata extracted in 0.00s
-2025-10-18 20:25:32,899 - pdf_utils.parser - INFO - ✅ PDF processing completed in 0.01s total
-2025-10-18 20:25:32,900 - pdf_utils.analyzer - INFO - 🤖 Starting OpenAI analysis - Text length: 2096 chars
-2025-10-18 20:25:32,900 - pdf_utils.analyzer - INFO - 📝 Prompt prepared in 0.00s - Length: 3559 chars
-2025-10-18 20:25:32,900 - pdf_utils.analyzer - INFO - 🌐 Making OpenAI API call...
-2025-10-18 20:25:39,350 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-10-18 20:25:39,364 - pdf_utils.analyzer - INFO - ✅ OpenAI API call completed in 6.46s
-2025-10-18 20:25:39,364 - pdf_utils.analyzer - INFO - 📊 Response length: 2755 chars
-2025-10-18 20:25:39,364 - pdf_utils.analyzer - INFO - 🏁 Total OpenAI analysis time: 6.46s
-2025-10-18 20:25:39,364 - services.pdf_request - INFO - 🏁 analyze-pdf request completed in 6.47s total
+2025-10-18 20:47:43,630 - config.settings - INFO - 🔧 Environment variables loaded
+2025-10-18 20:47:43,630 - config.settings - INFO - 🔑 OpenAI API key configured
+2025-10-18 20:47:43,654 - config.settings - INFO - 🤖 OpenAI client initialized
+2025-10-18 20:47:43,683 - __main__ - INFO - 🚀 Starting HackNU25 Application from app/main.py
+2025-10-18 20:47:43,683 - __main__ - INFO - 📄 PDF Analysis Server with FastAPI
+2025-10-18 20:47:43,683 - __main__ - INFO - ✅ OpenAI API key configured
+2025-10-18 20:47:43,683 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
+2025-10-18 20:47:59,681 - services.pdf_request - INFO - 🚀 Starting analyze-pdf request - File: Jordan_Chen_Resume.pdf
+2025-10-18 20:47:59,682 - services.pdf_request - INFO - ✅ File validation completed in 0.00s
+2025-10-18 20:47:59,682 - services.pdf_request - INFO - 📖 File read completed in 0.00s - Size: 3634 bytes
+2025-10-18 20:47:59,682 - pdf_utils.parser - INFO - 📄 Starting PDF text extraction - Size: 3634 bytes
+2025-10-18 20:47:59,683 - pdf_utils.parser - INFO - 📖 PDF parsed in 0.00s - Pages: 1
+2025-10-18 20:47:59,699 - pdf_utils.parser - INFO - 📝 Text extraction completed in 0.02s - 2099 chars total
+2025-10-18 20:47:59,699 - pdf_utils.parser - INFO - 📊 Metadata extracted in 0.00s
+2025-10-18 20:47:59,699 - pdf_utils.parser - INFO - ✅ PDF processing completed in 0.02s total
+2025-10-18 20:47:59,699 - pdf_utils.analyzer - INFO - 🤖 Starting OpenAI analysis - Text length: 2096 chars
+2025-10-18 20:47:59,699 - pdf_utils.analyzer - INFO - 📝 Prompt prepared in 0.00s - Length: 3559 chars
+2025-10-18 20:47:59,699 - pdf_utils.analyzer - INFO - 🌐 Making OpenAI API call...
+2025-10-18 20:48:06,740 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-18 20:48:06,748 - pdf_utils.analyzer - INFO - ✅ OpenAI API call completed in 7.05s
+2025-10-18 20:48:06,749 - pdf_utils.analyzer - INFO - 📊 Response length: 3194 chars
+2025-10-18 20:48:06,749 - pdf_utils.analyzer - INFO - 🏁 Total OpenAI analysis time: 7.05s
+2025-10-18 20:48:06,749 - services.pdf_request - INFO - 🏁 analyze-pdf request completed in 7.07s total
