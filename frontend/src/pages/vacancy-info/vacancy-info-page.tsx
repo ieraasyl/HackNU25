@@ -18,6 +18,7 @@ import { Widget } from "../../features/widget/ui/widget";
 
 export function VacancyInfoPage() {
   const { id } = useParams<{ id: string }>();
+  console.log(id);
   const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
   const { widgetOpen, setWidgetOpen } = useWidget();

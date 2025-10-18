@@ -64,7 +64,7 @@ export function FormModal({
     control,
     handleSubmit,
     reset,
-    formState: { errors, isValid, isDirty },
+    formState: { errors },
   } = useForm<ApplicationFormData>({
     resolver: zodResolver(applicationSchema),
     mode: "onChange",
