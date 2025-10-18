@@ -12,7 +12,7 @@ import { FileText, Mail, Upload, User } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
-// Zod schema for form validation
+// Zod schema for form validation (simplified for essential fields only)
 const applicationSchema = z.object({
   firstName: z
     .string()
@@ -26,19 +26,6 @@ const applicationSchema = z.object({
     .string()
     .email("Please enter a valid email address")
     .min(1, "Email is required"),
-  phone: z
-    .string()
-    .min(10, "Phone number must be at least 10 digits")
-    .regex(/^[\+]?[1-9][\d]{0,15}$/, "Please enter a valid phone number"),
-  location: z
-    .string()
-    .min(2, "Location is required")
-    .max(100, "Location must be less than 100 characters"),
-  experience: z.string().min(1, "Please select your experience level"),
-  coverLetter: z
-    .string()
-    .min(50, "Cover letter must be at least 50 characters")
-    .max(2000, "Cover letter must be less than 2000 characters"),
   resume: z
     .instanceof(File, { message: "Resume is required" })
     .refine(
@@ -63,6 +50,7 @@ interface FormModalProps {
   onClose: () => void;
   jobTitle?: string;
   companyName?: string;
+  onSubmit?: (data: ApplicationFormData) => void;
 }
 
 export function FormModal({
@@ -70,13 +58,13 @@ export function FormModal({
   onClose,
   jobTitle = "Software Engineer",
   companyName = "TechCorp",
+  onSubmit,
 }: FormModalProps) {
   const {
     control,
     handleSubmit,
     reset,
-    formState: { errors, isValid, isDirty },
-    watch,
+    formState: { errors },
   } = useForm<ApplicationFormData>({
     resolver: zodResolver(applicationSchema),
     mode: "onChange",
@@ -84,18 +72,15 @@ export function FormModal({
       firstName: "",
       lastName: "",
       email: "",
-      phone: "",
-      location: "",
-      experience: "",
-      coverLetter: "",
       resume: undefined as any,
     },
   });
 
-  const watchedValues = watch();
-
-  const onSubmit = (data: ApplicationFormData) => {
+  const onFormSubmit = (data: ApplicationFormData) => {
     console.log("Application submitted:", data);
+    if (onSubmit) {
+      onSubmit(data);
+    }
     onClose();
     reset();
   };
@@ -104,8 +89,6 @@ export function FormModal({
     onClose();
     reset();
   };
-
-  console.log(watchedValues);
 
   return (
     <Modal
@@ -123,7 +106,7 @@ export function FormModal({
         blur: 3,
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onFormSubmit)}>
         <Stack gap="36px" p="16px">
           <div className="flex flex-col gap-4">
             <Text size="md" fw={500} c="#18191c">
@@ -180,7 +163,7 @@ export function FormModal({
 
           <div className="flex flex-col gap-4">
             <Text size="md" fw={500} c="#18191c">
-              Proffesional Information
+              Professional Information
             </Text>
             <Stack gap="sm">
               <Controller
@@ -201,7 +184,6 @@ export function FormModal({
                   />
                 )}
               />
-              <Group grow></Group>
             </Stack>
           </div>
 
@@ -213,7 +195,7 @@ export function FormModal({
               type="submit"
               size="md"
               leftSection={<Upload size={16} />}
-              disabled={!isValid || !isDirty}
+              //   disabled={!isValid || !isDirty}
             >
               Submit Application
             </Button>
