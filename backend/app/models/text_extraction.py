@@ -1,0 +1,67 @@
+import os
+from google import genai
+from google.genai import types
+
+
+
+def parse_resume_with_requirements_gemini(job_requirements, resume_text):
+    """
+    Parses a resume against job requirements using the official Gemini API SDK.
+    """
+    try:
+   
+        client = genai.Client()
+    except Exception as e:
+      
+        return f"Error initializing Gemini client: {e}. Ensure GEMINI_API_KEY is set."
+
+
+    system_instruction = "You are an expert resume parser. Your task is to analyze the provided job requirements and a resume, then extract ONLY the parts of the resume that directly match or are highly relevant to the requirements. Present the output clearly and concisely."
+
+    user_prompt = f"""
+    Job Requirements:
+    {job_requirements}
+
+    Resume Content:
+    {resume_text}
+
+    Based on the job requirements, provide ONLY the relevant skills, experience, and education sections that match. For example, if the job requires Python and machine learning experience, highlight those parts of the resume that contain that information.
+    """
+
+    # Configuration for the API call
+    generation_config = types.GenerateContentConfig(
+        max_output_tokens=500,
+        temperature=0.7,
+    )
+
+    try:
+        # Call the Gemini API using the correct method and model name
+        response = client.generate_content(
+            model="gemini-1.5-flash", # Use the correct model identifier
+            contents=user_prompt,
+            config=generation_config,
+            system_instruction=system_instruction
+        )
+        
+        return response.text
+
+    except Exception as e:
+        return f"An error occurred during API call: {e}"
+
+job_requirements = """
+We are looking for a software engineer with strong experience in Python and machine learning. The candidate should be familiar with frameworks such as TensorFlow or PyTorch, and have experience with cloud platforms like AWS or Google Cloud. The role involves working in an an agile environment and contributing to system architecture.
+"""
+
+resume_text = """
+John Doe
+Skills: Python, JavaScript, SQL, TensorFlow, AWS
+Experience: Software Engineer at XYZ Corp (Jan 2020 - Present)
+- Developed machine learning models for predictive analytics.
+- Worked with cloud platforms, specifically AWS, to deploy solutions.
+Education: B.S. in Computer Science, XYZ University (Graduated 2019)
+"""
+
+parsed_output = parse_resume_with_requirements_gemini(job_requirements, resume_text)
+
+print("Parsed Output:")
+print(parsed_output)
