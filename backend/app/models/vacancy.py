@@ -32,7 +32,7 @@ class VacancyCreate(SQLModel):
     salary_min: int
     salary_max: int
     employment_type: str = "Full-time"
-    requirements: Dict[str, Any] = {}
+    requirements: str
     requirements_parsed: Optional[Dict[str, Any]] = None
 
 class VacancyRead(SQLModel):
@@ -45,7 +45,7 @@ class VacancyRead(SQLModel):
     salary_min: int
     salary_max: int
     employment_type: str
-    requirements: Dict[str, Any]
+    requirements: str
     requirements_parsed: Optional[Dict[str, Any]]
     created_at: datetime
     updated_at: datetime
