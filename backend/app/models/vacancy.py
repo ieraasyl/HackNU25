@@ -18,7 +18,7 @@ class Vacancy(SQLModel, table=True):
     salary_min: int
     salary_max: int
     employment_type: str = Field(default="Full-time")  # Full-time, Part-time, Contract, Internship
-    requirements: Dict[str, Any] = Field(default={}, sa_column=Column(JSON))  # JSON field for requirements
+    requirements: str  # JSON field for requirements
     requirements_parsed: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))  # Parsed requirements
     created_at: datetime = Field(default_factory=utc_now, sa_column=Column(TIMESTAMP(timezone=True)))
     updated_at: datetime = Field(default_factory=utc_now, sa_column=Column(TIMESTAMP(timezone=True)))
