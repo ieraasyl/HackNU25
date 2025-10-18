@@ -1,0 +1,32 @@
+2025-10-18 20:01:27,373 - config.settings - INFO - 🔧 Environment variables loaded
+2025-10-18 20:01:27,373 - config.settings - INFO - 🔑 OpenAI API key configured
+2025-10-18 20:01:27,388 - config.settings - INFO - 🤖 OpenAI client initialized
+2025-10-18 20:01:27,408 - __main__ - INFO - 🚀 Starting HackNU25 Backend Server...
+2025-10-18 20:01:27,408 - __main__ - INFO - 📄 PDF processing with OpenAI GPT and text extraction
+2025-10-18 20:01:27,408 - __main__ - INFO - 🎯 Two specialized endpoints
+2025-10-18 20:01:27,408 - __main__ - INFO - ✅ OpenAI API key configured
+2025-10-18 20:01:27,408 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
+2025-10-18 20:03:18,650 - config.settings - INFO - 🔧 Environment variables loaded
+2025-10-18 20:03:18,650 - config.settings - INFO - 🔑 OpenAI API key configured
+2025-10-18 20:03:18,665 - config.settings - INFO - 🤖 OpenAI client initialized
+2025-10-18 20:03:18,680 - __main__ - INFO - 🚀 Starting HackNU25 Backend Server...
+2025-10-18 20:03:18,681 - __main__ - INFO - 📄 PDF processing with OpenAI GPT and text extraction
+2025-10-18 20:03:18,681 - __main__ - INFO - 🎯 Two specialized endpoints
+2025-10-18 20:03:18,681 - __main__ - INFO - ✅ OpenAI API key configured
+2025-10-18 20:03:18,681 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
+2025-10-18 20:07:06,457 - config.settings - INFO - 🔧 Environment variables loaded
+2025-10-18 20:07:06,457 - config.settings - INFO - 🔑 OpenAI API key configured
+2025-10-18 20:07:06,472 - config.settings - INFO - 🤖 OpenAI client initialized
+2025-10-18 20:07:06,489 - __main__ - INFO - 🚀 Starting HackNU25 Backend Server...
+2025-10-18 20:07:06,489 - __main__ - INFO - 📄 PDF processing with OpenAI GPT and text extraction
+2025-10-18 20:07:06,489 - __main__ - INFO - 🎯 Two specialized endpoints
+2025-10-18 20:07:06,489 - __main__ - INFO - ✅ OpenAI API key configured
+2025-10-18 20:07:06,489 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001
+2025-10-18 20:07:38,890 - config.settings - INFO - 🔧 Environment variables loaded
+2025-10-18 20:07:38,890 - config.settings - INFO - 🔑 OpenAI API key configured
+2025-10-18 20:07:38,905 - config.settings - INFO - 🤖 OpenAI client initialized
+2025-10-18 20:07:38,920 - __main__ - INFO - 🚀 Starting HackNU25 Backend Server...
+2025-10-18 20:07:38,920 - __main__ - INFO - 📄 PDF processing with OpenAI GPT and text extraction
+2025-10-18 20:07:38,920 - __main__ - INFO - 🎯 Two specialized endpoints
+2025-10-18 20:07:38,920 - __main__ - INFO - ✅ OpenAI API key configured
+2025-10-18 20:07:38,920 - __main__ - INFO - 🌐 Server starting on http://127.0.0.1:8001

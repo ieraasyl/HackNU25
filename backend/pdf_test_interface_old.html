@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HackNU25 PDF Analyzer</title>
+    <title>HackNU25 Resume Analyzer</title>
     <style>
         * {
             margin: 0;
@@ -49,7 +49,7 @@
 
         .upload-section.drag-over {
             border-color: #667eea;
-            background: #f8f9ff;
+            background-color: #f8f9ff;
         }
 
         .file-input {
@@ -60,19 +60,16 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 12px 30px;
             border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
-            margin-top: 15px;
+            margin: 10px;
+            transition: transform 0.2s;
         }
 
-        .file-info {
-            margin-top: 15px;
-            padding: 10px;
-            background: #f0f0f0;
-            border-radius: 6px;
-            text-align: left;
+        .upload-btn:hover {
+            transform: translateY(-2px);
         }
 
         .form-group {
@@ -81,7 +78,7 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 600;
             color: #333;
         }
@@ -89,9 +86,15 @@
         .form-group input, .form-group textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 2px solid #ddd;
             border-radius: 6px;
             font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
         }
 
         .action-buttons {
@@ -145,14 +148,24 @@
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid #ffffff;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
             border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s ease-in-out infinite;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .file-info {
+            background: #e6f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
         }
 
         .metadata {
@@ -163,15 +176,6 @@
             font-family: monospace;
             font-size: 12px;
             overflow-x: auto;
-        }
-
-        .analysis-result {
-            background: #f7f7f7;
-            border-radius: 6px;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 14px;
-            line-height: 1.6;
         }
     </style>
 </head>
@@ -230,7 +234,8 @@
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (file) {
-                updateFileInfo(file);
+                selectedFile = file;
+                showFileInfo(file);
             }
         }
 
@@ -244,12 +249,15 @@
             uploadSection.classList.remove('drag-over');
             
             const files = event.dataTransfer.files;
-            if (files.length > 0 && files[0].type === 'application/pdf') {
-                selectedFile = files[0];
-                fileInput.files = files;
-                updateFileInfo(files[0]);
-            } else {
-                showResult('Please select a valid PDF file!', 'error');
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type === 'application/pdf') {
+                    selectedFile = file;
+                    fileInput.files = files;
+                    showFileInfo(file);
+                } else {
+                    showResult('Only PDF files are supported!', 'error');
+                }
             }
         }
 
@@ -257,14 +265,21 @@
             uploadSection.classList.remove('drag-over');
         }
 
-        function updateFileInfo(file) {
-            selectedFile = file;
+        function showFileInfo(file) {
             document.getElementById('fileName').textContent = file.name;
-            document.getElementById('fileSize').textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB`;
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
             fileInfo.style.display = 'block';
         }
 
-        function showResult(content, type = 'info') {
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function showResult(content, type = 'success') {
             const result = document.getElementById('result');
             result.innerHTML = content;
             result.className = `result ${type}`;
@@ -306,23 +321,32 @@
             }
         }
 
-        async function analyzeWithAI() {
+        async function analyzeWithKeywords() {
             if (!selectedFile) {
                 showResult('Please select a PDF file first!', 'error');
                 return;
             }
 
+            const keywords = document.getElementById('keywordsInput').value.trim();
+            if (!keywords) {
+                showResult('Please enter keywords for analysis!', 'error');
+                return;
+            }
+
             const formData = new FormData();
             formData.append('file', selectedFile);
-            formData.append('include_raw_text', 'false');
+            formData.append('keywords', keywords);
+            formData.append('extract_text', 'false');
 
-            const result = await makeRequest('analyze-pdf', formData, 'analyzeBtn', '🤖 AI Analysis (OpenAI)');
+            const result = await makeRequest('analyze-pdf', formData, 'analyzeBtn', '� Analyzing...');
 
             if (result.success) {
                 const analysis = result.data;
-                let content = '<h3>🤖 OpenAI Resume Analysis</h3>';
+                let content = '<h3>� Keyword-Based Analysis</h3>';
                 
                 if (analysis.success) {
+                    content += `<p><strong>Keywords:</strong> ${keywords}</p>`;
+                    
                     if (analysis.metadata) {
                         content += `<p><strong>📄 Pages:</strong> ${analysis.metadata.num_pages || 'Unknown'}</p>`;
                         content += `<p><strong>📏 Size:</strong> ${analysis.metadata.size_kb || 'Unknown'} KB</p>`;
@@ -344,7 +368,7 @@
             }
         }
 
-        async function parseText() {
+        async function parseResume() {
             if (!selectedFile) {
                 showResult('Please select a PDF file first!', 'error');
                 return;
@@ -354,7 +378,7 @@
             formData.append('file', selectedFile);
             formData.append('include_raw_text', 'true');
 
-            const result = await makeRequest('parse-pdf', formData, 'parseBtn', '📄 Extract Text Only');
+            const result = await makeRequest('parse-resume', formData, 'parseBtn', '📄 Extracting...');
 
             if (result.success) {
                 const parsing = result.data;
@@ -386,20 +410,15 @@
         // Check server status on page load
         window.onload = async function() {
             try {
-                const response = await fetch('http://127.0.0.1:8001/health');
+                const response = await fetch('http://127.0.0.1:8001/api/v1/health');
                 if (response.ok) {
                     const health = await response.json();
                     console.log('✅ Server status:', health);
-                    if (health.openai_status === 'connected') {
-                        showResult('✅ Server connected with OpenAI API', 'success');
-                    } else {
-                        showResult('⚠️ Server connected but OpenAI API not configured', 'error');
-                    }
                 } else {
-                    showResult('⚠️ Server not responding. Make sure the server is running on port 8001.', 'error');
+                    showResult('⚠️ Server not responding. Make sure the Dolphin server is running on port 8001.', 'error');
                 }
             } catch (error) {
-                showResult('❌ Cannot connect to server. Please start the server first.', 'error');
+                showResult('❌ Cannot connect to server. Please start the Dolphin server first.', 'error');
             }
         };
     </script>

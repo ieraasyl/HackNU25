@@ -3,7 +3,7 @@ fastapi[all]
 uvicorn
 
 # AI and PDF Processing
-google-generativeai
+openai
 pypdf
 python-multipart
 aiofiles
