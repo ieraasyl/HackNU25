@@ -53,6 +53,7 @@ export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
       style={{ minHeight: "100vh", paddingTop: "2rem", paddingBottom: "2rem" }}
     >
       <Stack gap="xl">
+        {/* Header with back button */}
         <Group>
           <ActionIcon variant="subtle" size="lg" onClick={handleBack}>
             <ArrowLeft size={20} />
@@ -62,6 +63,7 @@ export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
           </Text>
         </Group>
 
+        {/* Job Header Card */}
         <Card shadow="sm" padding="xl" radius="md" withBorder>
           <Stack gap="md">
             <Group justify="space-between" align="flex-start">
@@ -142,8 +144,23 @@ export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
           </Stack>
         </Card>
 
-        <Group align="flex-start" gap="xl">
-          <Stack style={{ flex: 2 }} gap="xl">
+        {/* Main Content Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr",
+            gap: "2rem",
+            alignItems: "start",
+          }}
+        >
+          {/* Left Column - Main Content */}
+          <div
+            style={{
+              display: "grid",
+              gap: "1.5rem",
+            }}
+          >
+            {/* Job Description Card */}
             <Card shadow="sm" padding="xl" radius="md" withBorder>
               <Stack gap="md">
                 <Text size="lg" fw={600} c="#18191c">
@@ -155,12 +172,18 @@ export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
               </Stack>
             </Card>
 
+            {/* Requirements Card */}
             <Card shadow="sm" padding="xl" radius="md" withBorder>
               <Stack gap="md">
                 <Text size="lg" fw={600} c="#18191c">
                   Requirements
                 </Text>
-                <Stack gap="xs">
+                <div
+                  style={{
+                    display: "grid",
+                    gap: "0.5rem",
+                  }}
+                >
                   {job.requirements.map((requirement, index) => (
                     <Group key={index} gap="xs" align="flex-start">
                       <Box
@@ -177,15 +200,29 @@ export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
                       </Text>
                     </Group>
                   ))}
-                </Stack>
+                </div>
               </Stack>
             </Card>
-          </Stack>
+          </div>
 
-          {/* Sidebar */}
-          <Stack style={{ flex: 1 }} gap="md">
+          {/* Right Column - Sidebar */}
+          <div
+            style={{
+              display: "grid",
+              gap: "1rem",
+              gridTemplateRows: "max-content",
+              position: "sticky",
+              top: "2rem",
+            }}
+          >
+            {/* Quick Apply Card */}
             <Card shadow="sm" padding="lg" radius="md" withBorder>
-              <Stack gap="md">
+              <div
+                style={{
+                  display: "grid",
+                  gap: "1rem",
+                }}
+              >
                 <Text size="md" fw={600} c="#18191c">
                   Quick Apply
                 </Text>
@@ -193,42 +230,54 @@ export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
                   Apply Now
                 </Button>
                 <Divider />
-                <Stack gap="xs">
-                  <Text size="sm" fw={500} c="#18191c">
-                    Job Type
-                  </Text>
-                  <Text size="sm" c="#767f8c">
-                    {job.type}
-                  </Text>
-                </Stack>
-                <Stack gap="xs">
-                  <Text size="sm" fw={500} c="#18191c">
-                    Experience
-                  </Text>
-                  <Text size="sm" c="#767f8c">
-                    {job.experience}
-                  </Text>
-                </Stack>
-                <Stack gap="xs">
-                  <Text size="sm" fw={500} c="#18191c">
-                    Salary
-                  </Text>
-                  <Text size="sm" c="#767f8c">
-                    {job.salary}
-                  </Text>
-                </Stack>
-                <Stack gap="xs">
-                  <Text size="sm" fw={500} c="#18191c">
-                    Location
-                  </Text>
-                  <Text size="sm" c="#767f8c">
-                    {job.location}
-                  </Text>
-                </Stack>
-              </Stack>
+
+                {/* Job Details Grid */}
+                <div
+                  style={{
+                    display: "grid",
+                    gap: "0.75rem",
+                  }}
+                >
+                  <div style={{ display: "grid", gap: "0.25rem" }}>
+                    <Text size="sm" fw={500} c="#18191c">
+                      Job Type
+                    </Text>
+                    <Text size="sm" c="#767f8c">
+                      {job.type}
+                    </Text>
+                  </div>
+
+                  <div style={{ display: "grid", gap: "0.25rem" }}>
+                    <Text size="sm" fw={500} c="#18191c">
+                      Experience
+                    </Text>
+                    <Text size="sm" c="#767f8c">
+                      {job.experience}
+                    </Text>
+                  </div>
+
+                  <div style={{ display: "grid", gap: "0.25rem" }}>
+                    <Text size="sm" fw={500} c="#18191c">
+                      Salary
+                    </Text>
+                    <Text size="sm" c="#767f8c">
+                      {job.salary}
+                    </Text>
+                  </div>
+
+                  <div style={{ display: "grid", gap: "0.25rem" }}>
+                    <Text size="sm" fw={500} c="#18191c">
+                      Location
+                    </Text>
+                    <Text size="sm" c="#767f8c">
+                      {job.location}
+                    </Text>
+                  </div>
+                </div>
+              </div>
             </Card>
-          </Stack>
-        </Group>
+          </div>
+        </div>
       </Stack>
     </Container>
   );
