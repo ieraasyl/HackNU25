@@ -5,6 +5,7 @@ uvicorn
 # AI and PDF Processing
 openai
 pypdf
+PyMuPDF  # fitz - Better PDF parsing
 python-multipart
 aiofiles
 
