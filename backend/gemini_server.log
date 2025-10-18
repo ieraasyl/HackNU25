@@ -1,0 +1,24 @@
+/Users/ualikhanyertayev/Desktop/dev/HackNU25/.venv/lib/python3.14/site-packages/fastapi/_compat/v1.py:72: UserWarning: Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater.
+  from pydantic.v1 import BaseConfig as BaseConfig  # type: ignore[assignment]
+INFO:     Started server process [29727]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+⚠️  GEMINI_API_KEY not found in environment. Set it or the server will use mock responses.
+🚀 Starting Gemini PDF Analysis Server...
+📄 Supports PDF text extraction and AI analysis
+🤖 Powered by Google Gemini AI
+
+⚠️  No Gemini API key - using mock responses
+   Set GEMINI_API_KEY environment variable for real AI
+
+🌐 API Documentation: http://127.0.0.1:8001/docs
+💬 Chat endpoint: POST /api/v1/chat
+📋 PDF analysis: POST /api/v1/analyze-pdf
+❓ Ask PDF: POST /api/v1/ask-pdf
+🏥 Health check: GET /health
+INFO:     127.0.0.1:61498 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [29727]

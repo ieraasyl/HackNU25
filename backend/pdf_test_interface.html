@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dolphin ByteDance PDF Processor</title>
+    <title>HackNU25 Resume Analyzer</title>
     <style>
         * {
             margin: 0;
@@ -182,8 +182,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🐬 Dolphin ByteDance PDF Processor</h1>
-            <p>Upload PDF files and interact with ByteDance AI</p>
+            <h1>🎯 HackNU25 Resume Analyzer</h1>
+            <p>Upload resume PDF for automatic structured analysis</p>
         </div>
 
         <div class="content">
@@ -205,25 +205,17 @@
 
             <!-- Analysis Options -->
             <div class="form-group">
-                <label for="analysisPrompt">Analysis Prompt:</label>
-                <textarea id="analysisPrompt" rows="3" placeholder="Enter your analysis prompt...">Please analyze this document and provide a summary of its key points, main findings, and important information.</textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="questionInput">Question about the document:</label>
-                <input type="text" id="questionInput" placeholder="Ask a specific question about the PDF content...">
+                <label for="keywordsInput">Keywords for analysis:</label>
+                <input type="text" id="keywordsInput" placeholder="Enter keywords to analyze in the PDF...">
             </div>
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <button type="button" class="action-btn" id="metadataBtn" onclick="getMetadata()">
-                    📊 Get Metadata
+                <button type="button" class="action-btn" id="analyzeBtn" onclick="analyzeWithKeywords()">
+                    � Analyze with Keywords
                 </button>
-                <button type="button" class="action-btn" id="analyzeBtn" onclick="analyzeDocument()">
-                    📋 Analyze Document
-                </button>
-                <button type="button" class="action-btn" id="askBtn" onclick="askQuestion()">
-                    ❓ Ask Question
+                <button type="button" class="action-btn" id="parseBtn" onclick="parseResume()">
+                    📄 Extract Text (PyPDF)
                 </button>
             </div>
 
@@ -335,61 +327,40 @@
             }
         }
 
-        async function getMetadata() {
+        async function analyzeWithKeywords() {
             if (!selectedFile) {
                 showResult('Please select a PDF file first!', 'error');
                 return;
             }
 
-            const formData = new FormData();
-            formData.append('file', selectedFile);
-
-            const result = await makeRequest('pdf-metadata', formData, 'metadataBtn', '📊 Get Metadata');
-
-            if (result.success) {
-                const metadata = result.data;
-                let content = '<h3>📊 PDF Metadata</h3>';
-                content += `<div class="metadata">${JSON.stringify(metadata, null, 2)}</div>`;
-                showResult(content, 'success');
-            } else {
-                showResult(`❌ Error: ${result.error}`, 'error');
-            }
-        }
-
-        async function analyzeDocument() {
-            if (!selectedFile) {
-                showResult('Please select a PDF file first!', 'error');
+            const keywords = document.getElementById('keywordsInput').value.trim();
+            if (!keywords) {
+                showResult('Please enter keywords for analysis!', 'error');
                 return;
             }
 
-            const analysisPrompt = document.getElementById('analysisPrompt').value || 
-                'Please analyze this document and provide a summary of its key points.';
-
             const formData = new FormData();
             formData.append('file', selectedFile);
-            formData.append('analysis_prompt', analysisPrompt);
-            formData.append('extract_text', 'true');
+            formData.append('keywords', keywords);
+            formData.append('extract_text', 'false');
 
-            const result = await makeRequest('analyze-pdf', formData, 'analyzeBtn', '📋 Analyze Document');
+            const result = await makeRequest('analyze-pdf', formData, 'analyzeBtn', '� Analyzing...');
 
             if (result.success) {
                 const analysis = result.data;
-                let content = '<h3>📋 Document Analysis</h3>';
+                let content = '<h3>� Keyword-Based Analysis</h3>';
                 
                 if (analysis.success) {
+                    content += `<p><strong>Keywords:</strong> ${keywords}</p>`;
+                    
                     if (analysis.metadata) {
                         content += `<p><strong>📄 Pages:</strong> ${analysis.metadata.num_pages || 'Unknown'}</p>`;
                         content += `<p><strong>📏 Size:</strong> ${analysis.metadata.size_kb || 'Unknown'} KB</p>`;
                     }
                     
-                    if (analysis.extracted_text) {
-                        content += `<h4>📝 Extracted Text (first 300 chars):</h4>`;
-                        content += `<div class="metadata">${analysis.extracted_text.substring(0, 300)}...</div>`;
-                    }
-                    
                     if (analysis.analysis) {
                         content += `<h4>🤖 AI Analysis:</h4>`;
-                        content += `<p>${analysis.analysis}</p>`;
+                        content += `<div class="analysis-result">${analysis.analysis.replace(/\n/g, '<br>')}</div>`;
                     } else {
                         content += `<p><em>⚠️ AI analysis not available (API key may not be configured)</em></p>`;
                     }
@@ -403,43 +374,40 @@
             }
         }
 
-        async function askQuestion() {
+        async function parseResume() {
             if (!selectedFile) {
                 showResult('Please select a PDF file first!', 'error');
                 return;
             }
 
-            const question = document.getElementById('questionInput').value.trim();
-            if (!question) {
-                showResult('Please enter a question!', 'error');
-                return;
-            }
-
             const formData = new FormData();
             formData.append('file', selectedFile);
-            formData.append('question', question);
-            formData.append('include_context', 'true');
+            formData.append('include_raw_text', 'true');
 
-            const result = await makeRequest('ask-pdf', formData, 'askBtn', '❓ Ask Question');
+            const result = await makeRequest('parse-resume', formData, 'parseBtn', '📄 Extracting...');
 
             if (result.success) {
-                const questionResult = result.data;
-                let content = '<h3>❓ Question & Answer</h3>';
+                const parsing = result.data;
+                let content = '<h3>📄 Text Extraction (PyPDF)</h3>';
                 
-                if (questionResult.success) {
-                    content += `<p><strong>Question:</strong> ${questionResult.question}</p>`;
-                    
-                    if (questionResult.answer) {
-                        content += `<p><strong>🤖 Answer:</strong> ${questionResult.answer}</p>`;
-                        content += `<p><em>Used document context: ${questionResult.used_context ? 'Yes' : 'No'}</em></p>`;
-                    } else {
-                        content += `<p><em>⚠️ No answer available (API key may not be configured)</em></p>`;
+                if (parsing.success) {
+                    if (parsing.metadata) {
+                        content += `<p><strong>📄 Pages:</strong> ${parsing.metadata.num_pages || 'Unknown'}</p>`;
+                        content += `<p><strong>📏 Size:</strong> ${parsing.metadata.size_kb || 'Unknown'} KB</p>`;
                     }
+                    
+                    if (parsing.extracted_text) {
+                        const textLength = parsing.extracted_text.length;
+                        content += `<p><strong>📝 Extracted Text:</strong> ${textLength} characters</p>`;
+                        content += `<div class="metadata">${parsing.extracted_text.substring(0, 1000)}${textLength > 1000 ? '...' : ''}</div>`;
+                    }
+                    
+                    content += `<p><strong>Status:</strong> ${parsing.analysis}</p>`;
                 } else {
-                    content += `<p>❌ Question failed: ${questionResult.error}</p>`;
+                    content += `<p>❌ Text extraction failed: ${parsing.error}</p>`;
                 }
                 
-                showResult(content, questionResult.success ? 'success' : 'error');
+                showResult(content, parsing.success ? 'success' : 'error');
             } else {
                 showResult(`❌ Error: ${result.error}`, 'error');
             }
