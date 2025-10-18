@@ -2,10 +2,9 @@ import { Container, Loader, Stack, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle } from "lucide-react";
 import { useNavigate } from "react-router";
-import { getVacancies } from "../../features/vacancies/api/vacancies-api";
-import { Header } from "../../features/vacancies/components/header";
-import { JobCard } from "../../features/vacancies/components/job-card";
-import type { Job } from "../../features/vacancies/model/types";
+import { getVacancies } from "../../features/vacancy/api/vacancies-api";
+import type { Job } from "../../features/vacancy/model/types";
+import { JobCard } from "../../features/vacancy/ui/job-card";
 
 export default function VacanciesPage() {
   const navigate = useNavigate();
@@ -30,8 +29,6 @@ export default function VacanciesPage() {
   return (
     <Container style={{ minHeight: "100vh" }}>
       <div className="min-h-screen bg-background">
-        <Header />
-
         <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
             <h1 className="mb-4 text-5xl font-bold tracking-tight text-foreground">

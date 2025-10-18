@@ -41,3 +41,20 @@ export const getVacancyById = async (id: string): Promise<Job | null> => {
     throw error;
   }
 };
+
+export const createVacancy = async (
+  vacancyData: Omit<Job, "id" | "created_at" | "updated_at">
+): Promise<Job> => {
+  try {
+    const response = await axiosClient.post("/vacancies", vacancyData);
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.error(
+        "Axios error creating vacancy:",
+        error.response?.data || error.message
+      );
+    } else console.error("Error creating vacancy:", error);
+    throw error;
+  }
+};

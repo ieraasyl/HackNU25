@@ -21,18 +21,6 @@ export function Header() {
             >
               Jobs
             </a>
-            <a
-              href="#"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Companies
-            </a>
-            <a
-              href="#"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              About
-            </a>
           </nav>
         </div>
       </div>
