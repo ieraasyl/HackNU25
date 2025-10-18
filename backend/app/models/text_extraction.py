@@ -13,7 +13,7 @@ def parse_resume_with_requirements_gemini(job_requirements, resume_text):
         client = genai.Client()
     except Exception as e:
       
-        return f"Error initializing Gemini client: {e}. Ensure GEMINI_API_KEY is set."
+        return f"Error initializing Gemini client: {e}. Ensure GOOGLE_API_KEY is set."
 
     key_sections="Personal Information (Candidate Overview); Job Experience (Work History); Education;  Skills; Languages; Projects;Certifications and Achievements;"
     
@@ -38,13 +38,14 @@ def parse_resume_with_requirements_gemini(job_requirements, resume_text):
         temperature=0.7,
     )
 
+    user_prompt = "Analyze the resume against the job requirements and return only the specified JSON with MATCHING SECTIONS and FIT SCORE."
+
     try:
         # Call the Gemini API using the correct method and model name
-        response = client.generate_content(
+        response = client.models.generate_content(
             model="gemini-1.5-flash", # Use the correct model identifier
-            contents=user_prompt,
-            config=generation_config,
-            system_instruction=system_instruction
+            contents=f"{system_instruction}\n\n{user_prompt}",
+            config=generation_config
         )
         
         return response.text
