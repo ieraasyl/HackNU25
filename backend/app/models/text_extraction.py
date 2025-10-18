@@ -15,17 +15,21 @@ def parse_resume_with_requirements_gemini(job_requirements, resume_text):
       
         return f"Error initializing Gemini client: {e}. Ensure GEMINI_API_KEY is set."
 
+    key_sections="Personal Information (Candidate Overview); Job Experience (Work History); Education;  Skills; Languages; Projects;Certifications and Achievements;"
+    
+    system_instruction = f"""
+    Job Requirements: {job_requirements}
+    Resume Content: {resume_text}
 
-    system_instruction = "You are an expert resume parser. Your task is to analyze the provided job requirements and a resume, then extract ONLY the parts of the resume that directly match or are highly relevant to the requirements. Present the output clearly and concisely."
+    You are an expert resume analyzer. Your task is to perform two actions based on the job requirements:
 
-    user_prompt = f"""
-    Job Requirements:
-    {job_requirements}
+    1.  **Extract Match:** Provide only the sections from the 'Resume Content' ({key_sections}) that are most **relevant to the 'Job Requirements'**.
+    2.  **Calculate Fit Score:** Assign a **single numerical score** from **0 to 100** that represents how well the candidate's background matches the requirements (100 being a perfect fit).
 
-    Resume Content:
-    {resume_text}
+    Your final output MUST follow this exact, structured json format:
 
-    Based on the job requirements, provide ONLY the relevant skills, experience, and education sections that match. For example, if the job requires Python and machine learning experience, highlight those parts of the resume that contain that information.
+    'MATCHING SECTIONS':'[Relevant extracted resume text goes here]',
+    'FIT SCORE': [The calculated score (0-100) goes here]
     """
 
     # Configuration for the API call
