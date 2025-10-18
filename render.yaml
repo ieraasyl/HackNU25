@@ -1,0 +1,40 @@
+services:
+  # Backend API Service
+  - type: web
+    name: hacknu-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: hacknu-redis
+          property: connectionString
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  # Redis Service for TaskIQ
+  - type: redis
+    name: hacknu-redis
+    plan: free
+    region: oregon
+    maxmemoryPolicy: noeviction
+    ipAllowList: []
+
+databases:
+  # PostgreSQL Database
+  - name: hacknu-db
+    plan: free
+    region: oregon
+    databaseName: hacknu
+    user: hacknu
