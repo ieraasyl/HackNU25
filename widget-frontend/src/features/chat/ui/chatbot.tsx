@@ -4,40 +4,73 @@ import { Box, ScrollArea } from "@mantine/core";
 import { ChatMessage, type Message } from "./chat-message";
 import { ChatInput } from "./chat-input";
 import { ChatHeader } from "./chat-header";
-
-// Mock data
-const mockMessages: Message[] = [
-  {
-    id: "1",
-    content: "Hello! How can I help you today?",
-    role: "assistant",
-    timestamp: new Date(Date.now() - 1000 * 60 * 5),
-  },
-  {
-    id: "2",
-    content: "I need help with my account settings",
-    role: "user",
-    timestamp: new Date(Date.now() - 1000 * 60 * 4),
-  },
-  {
-    id: "3",
-    content:
-      "I'd be happy to help you with your account settings. What specifically would you like to change?",
-    role: "assistant",
-    timestamp: new Date(Date.now() - 1000 * 60 * 3),
-  },
-  {
-    id: "4",
-    content: "I want to update my email address",
-    role: "user",
-    timestamp: new Date(Date.now() - 1000 * 60 * 2),
-  },
-];
+import { useState, useEffect, useRef } from "react";
+import { apiConfig } from "../../../config/api";
 
 export function Chatbot() {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: "1",
+      content: "Hello! How can I help you today?",
+      role: "assistant",
+      timestamp: new Date(),
+    },
+  ]);
+  const wsRef = useRef<WebSocket | null>(null);
+
+  useEffect(() => {
+    // Connect to WebSocket
+    const ws = new WebSocket(apiConfig.endpoints.chatWs);
+    wsRef.current = ws;
+
+    ws.onopen = () => {
+      console.log("WebSocket connected");
+    };
+
+    ws.onmessage = (event) => {
+      const responseText = event.data;
+      if (responseText !== "connected") {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: Date.now().toString(),
+            content: responseText.replace("echo: ", ""),
+            role: "assistant",
+            timestamp: new Date(),
+          },
+        ]);
+      }
+    };
+
+    ws.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    ws.onclose = () => {
+      console.log("WebSocket disconnected");
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
   const handleSendMessage = (message: string) => {
-    console.log("Sending message:", message);
-    // State management will be added later
+    // Add user message to chat
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      content: message,
+      role: "user",
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, userMessage]);
+
+    // Send message via WebSocket
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.send(message);
+    } else {
+      console.error("WebSocket is not connected");
+    }
   };
 
   return (
@@ -64,7 +97,7 @@ export function Chatbot() {
         }}
       >
         <Box style={{ padding: "8px 0" }}>
-          {mockMessages.map((message) => (
+          {messages.map((message) => (
             <ChatMessage key={message.id} message={message} />
           ))}
         </Box>
