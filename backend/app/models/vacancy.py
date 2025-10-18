@@ -1,4 +1,4 @@
-from sqlmodel import SQLModel, Field, Column
+from sqlmodel import SQLModel, Field, Column, TIMESTAMP
 from sqlalchemy import JSON
 from typing import Optional, Dict, Any
 from datetime import datetime, timezone
@@ -20,8 +20,8 @@ class Vacancy(SQLModel, table=True):
     employment_type: str = Field(default="Full-time")  # Full-time, Part-time, Contract, Internship
     requirements: Dict[str, Any] = Field(default={}, sa_column=Column(JSON))  # JSON field for requirements
     requirements_parsed: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))  # Parsed requirements
-    created_at: datetime = Field(default_factory=utc_now)
-    updated_at: datetime = Field(default_factory=utc_now)
+    created_at: datetime = Field(default_factory=utc_now, sa_column=Column(TIMESTAMP(timezone=True)))
+    updated_at: datetime = Field(default_factory=utc_now, sa_column=Column(TIMESTAMP(timezone=True)))
 
 class VacancyCreate(SQLModel):
     """Schema for creating a new vacancy"""
