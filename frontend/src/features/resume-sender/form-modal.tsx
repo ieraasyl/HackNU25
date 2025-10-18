@@ -190,9 +190,9 @@ export function FormModal({
                   <FileInput
                     size="md"
                     label="Resume/CV"
-                    placeholder="Upload your resume (PDF, DOC, DOCX)"
+                    placeholder="Upload your resume (PDF)"
                     leftSection={<FileText size={16} />}
-                    accept=".pdf,.doc,.docx"
+                    accept=".pdf"
                     error={errors.resume?.message}
                     required
                     onChange={onChange}
