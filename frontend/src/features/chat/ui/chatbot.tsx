@@ -43,8 +43,8 @@ export function Chatbot() {
   return (
     <Box
       style={{
-        height: "600px",
-        maxWidth: "800px",
+        width: "100vw",
+        height: "100vh",
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
