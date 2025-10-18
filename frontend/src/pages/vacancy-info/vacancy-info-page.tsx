@@ -136,7 +136,7 @@ export function VacancyInfoPage() {
                 <Group gap="xs">
                   <Clock size={16} color="#767f8c" />
                   <Text size="sm" c="#767f8c">
-                    Posted {formatPostedDate(job.created_at)}
+                    {formatPostedDate(job.created_at)}
                   </Text>
                 </Group>
               </Group>
