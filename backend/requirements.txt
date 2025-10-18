@@ -17,7 +17,15 @@ httpx
 # Database and Background Jobs (Optional - keep if needed for main app)
 sqlmodel
 asyncpg
+aiosqlite
 redis
 taskiq
 taskiq-redis
+python-dotenv
+openai
+langchain
+httpx
 PyJWT
+google-genai
+aiofiles
+python-multipart
