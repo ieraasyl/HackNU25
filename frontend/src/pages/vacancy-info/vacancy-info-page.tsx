@@ -11,15 +11,7 @@ import {
   Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import {
-  ArrowLeft,
-  Bookmark,
-  Building2,
-  Clock,
-  DollarSign,
-  MapPin,
-  Share2,
-} from "lucide-react";
+import { ArrowLeft, Building2, Clock, DollarSign, MapPin } from "lucide-react";
 import { useNavigate } from "react-router";
 import { FormModal } from "../../features/resume-sender/form-modal";
 import { mockJobs } from "../../features/vacancies/lib/mock-data";
