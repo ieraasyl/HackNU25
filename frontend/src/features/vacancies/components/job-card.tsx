@@ -38,7 +38,7 @@ export function JobCard({
       padding="xl"
       radius="md"
       withBorder
-      style={{ height: "100%" }}
+      style={{ height: "100%", cursor: "pointer" }}
       onClick={onClick}
     >
       <Stack gap="lg">
