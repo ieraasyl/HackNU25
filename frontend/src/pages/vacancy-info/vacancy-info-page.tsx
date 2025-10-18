@@ -100,15 +100,6 @@ export function VacancyInfoPage({ jobId = "1" }: VacancyInfoPageProps) {
                     </Group>
                   </Group>
                 </Stack>
-
-                <Group gap="xs">
-                  <ActionIcon variant="light" color="gray" size="lg">
-                    <Bookmark size={20} />
-                  </ActionIcon>
-                  <ActionIcon variant="light" color="gray" size="lg">
-                    <Share2 size={20} />
-                  </ActionIcon>
-                </Group>
               </Group>
 
               <Group gap="md">
