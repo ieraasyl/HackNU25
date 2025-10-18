@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: smartbot-backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend:/app
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: smartbot
+      POSTGRES_PASSWORD: smartbot
+      POSTGRES_DB: smartbot
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  frontend-dashboard:
+    build: ./frontend/dashboard
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  frontend-widget:
+    build: ./frontend/widget
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
