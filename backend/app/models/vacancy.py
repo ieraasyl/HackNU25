@@ -18,8 +18,7 @@ class Vacancy(SQLModel, table=True):
     salary_min: int
     salary_max: int
     employment_type: str = Field(default="Full-time")  # Full-time, Part-time, Contract, Internship
-    requirements: str  # JSON field for requirements
-    requirements_parsed: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))  # Parsed requirements
+    requirements: Optional[Dict[str, Any]] = None
     created_at: datetime = Field(default_factory=utc_now, sa_column=Column(TIMESTAMP(timezone=True)))
     updated_at: datetime = Field(default_factory=utc_now, sa_column=Column(TIMESTAMP(timezone=True)))
 
@@ -32,8 +31,8 @@ class VacancyCreate(SQLModel):
     salary_min: int
     salary_max: int
     employment_type: str = "Full-time"
-    requirements: str
-    requirements_parsed: Optional[Dict[str, Any]] = None
+    requirements: Optional[Dict[str, Any]] = None
+    
 
 class VacancyRead(SQLModel):
     """Schema for reading vacancy data"""
@@ -45,7 +44,6 @@ class VacancyRead(SQLModel):
     salary_min: int
     salary_max: int
     employment_type: str
-    requirements: str
-    requirements_parsed: Optional[Dict[str, Any]]
+    requirements: Optional[Dict[str, Any]] = None
     created_at: datetime
     updated_at: datetime
