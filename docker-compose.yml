@@ -31,17 +31,10 @@ services:
     ports:
       - "6379:6379"
 
-  frontend-dashboard:
-    build: ./frontend/dashboard
+  frontend:
+    build: ./frontend
     ports:
       - "3000:80"
-    depends_on:
-      - backend
-
-  frontend-widget:
-    build: ./frontend/widget
-    ports:
-      - "3001:80"
     depends_on:
       - backend
 
